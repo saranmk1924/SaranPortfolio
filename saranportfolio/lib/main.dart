@@ -11,11 +11,11 @@ class SaranPortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Calc App',
-        theme: ThemeData.dark(),
-        home: const IntroPage(),
-      );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Saran Portfolio',
+      theme: ThemeData.dark(),
+      home: const IntroPage(),
+    );
   }
 }

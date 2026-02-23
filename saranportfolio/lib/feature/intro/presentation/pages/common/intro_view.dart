@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:saranportfolio/common/responsive_layout.dart';
-import 'package:saranportfolio/feature/intro/presentation/pages/common/animated_blob.dart';
+import 'package:saranportfolio/feature/intro/presentation/pages/common/intro_background.dart';
+import 'package:saranportfolio/feature/intro/presentation/pages/common/landscape_layout.dart';
+import 'package:saranportfolio/feature/intro/presentation/pages/common/portrait_layout.dart';
 import 'dart:async';
 
 class IntroView extends StatefulWidget {
@@ -106,27 +107,14 @@ class _IntroViewState extends State<IntroView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final screenType = ResponsiveLayout.getScreenType(context);
-
-    switch (screenType) {
-      case ScreenType.mobile:
-        break;
-      case ScreenType.tablet:
-        break;
-      case ScreenType.desktop:
-        break;
-      case ScreenType.ultraHd:
-        break;
-    }
+    final isLandscape =
+        MediaQuery.of(context).size.width > MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF0F0F0F), // Deep black
-              Color(0xFF1A1A1A), // Soft dark
-            ],
+            colors: [Color(0xFF0F0F0F), Color(0xFF1A1A1A)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -134,224 +122,38 @@ class _IntroViewState extends State<IntroView> with TickerProviderStateMixin {
         child: SafeArea(
           child: Stack(
             children: [
-              Positioned.fill(
-                child: Stack(
-                  children: const [
-                    PremiumBlob(
-                      top: -200,
-                      right: -80,
-                      size: 300,
-                      color: Colors.white,
-                      duration: 3,
-                    ),
-                    PremiumBlob(
-                      bottom: -200,
-                      left: -80,
-                      size: 300,
-                      color: Colors.yellow,
-                      duration: 3,
-                    ),
-                  ],
-                ),
-              ),
-              // Main Content
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Avatar Slide + Fade
-                    SlideTransition(
-                      position: _avatarSlide,
-                      child: FadeTransition(
-                        opacity: _avatarFade,
-                        child: GestureDetector(
-                          onTap: _flipCard,
-                          child: AnimatedBuilder(
-                            animation: _flipController,
-                            builder: (context, child) {
-                              final angle = _flipController.value * 3.1416;
+              const IntroBackground(),
 
-                              return Transform(
-                                alignment: Alignment.center,
-                                transform: Matrix4.identity()
-                                  ..setEntry(3, 2, 0.001)
-                                  ..rotateY(angle),
-                                child: angle <= 1.5708
-                                    ? _buildAvatar(
-                                        "assets/images/saran_profile.jpeg",
-                                      )
-                                    : Transform(
-                                        alignment: Alignment.center,
-                                        transform: Matrix4.rotationY(3.1416),
-                                        child: _buildAvatar(
-                                          "assets/images/saran_animated.jpeg",
-                                        ),
-                                      ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-
-                    // Text Section
-                    FadeTransition(
-                      opacity: _textFade,
-                      child: Column(
-                        children: [
-                          RichText(
-                            text: const TextSpan(
-                              text: "Hi, I'm ",
-                              style: TextStyle(
-                                fontSize: 28,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "Saran ",
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                    color: Colors.yellow,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                TextSpan(text: "👋"),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "Flutter Developer",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white70,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            "API Integration & UI Definition Passionate",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white60,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 40),
-
-                    // Button
-                    FadeTransition(
-                      opacity: _buttonFade,
-                      child: GestureDetector(
-                        onTapDown: (_) {
-                          setState(() => _isPressed = true);
-                        },
-                        onTapUp: (_) {
-                          setState(() => _isPressed = false);
-                        },
-                        onTapCancel: () {
-                          setState(() => _isPressed = false);
-                        },
-                        onTap: () {
-                          // Navigate to main portfolio
-                        },
-                        child: AnimatedScale(
-                          scale: _isPressed ? 0.96 : 1.0,
-                          duration: const Duration(milliseconds: 120),
-                          curve: Curves.easeOut,
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 120),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 40,
-                              vertical: 16,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFFFFD54F), Colors.white],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(40),
-                              boxShadow: _isPressed
-                                  ? [
-                                      // Reduced shadow when pressed
-                                      const BoxShadow(
-                                        color: Colors.black38,
-                                        blurRadius: 8,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ]
-                                  : [
-                                      BoxShadow(
-                                        color: Colors.yellow.withValues(
-                                          alpha: 0.4,
-                                        ),
-                                        blurRadius: 25,
-                                        spreadRadius: 1,
-                                        offset: const Offset(1, 1),
-                                      ),
-                                      const BoxShadow(
-                                        color: Colors.black54,
-                                        blurRadius: 15,
-                                        offset: Offset(0, 6),
-                                      ),
-                                    ],
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  "Explore My Digital Craft",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-
-                                // Animated Arrow
-                                AnimatedSlide(
-                                  offset: _isPressed
-                                      ? const Offset(0.1, 0)
-                                      : Offset.zero,
-                                  duration: const Duration(milliseconds: 120),
-                                  child: const Icon(
-                                    Icons.arrow_forward_rounded,
-                                    size: 20,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              IndexedStack(
+                index: isLandscape ? 1 : 0,
+                children: [
+                  PortraitLayout(
+                    avatarSlide: _avatarSlide,
+                    avatarFade: _avatarFade,
+                    textFade: _textFade,
+                    buttonFade: _buttonFade,
+                    flipController: _flipController,
+                    onFlip: _flipCard,
+                    isPressed: _isPressed,
+                    onPressChange: (v) => setState(() => _isPressed = v),
+                  ),
+                  LandscapeLayout(
+                    screenWidth: MediaQuery.of(context).size.width,
+                    avatarSlide: _avatarSlide,
+                    avatarFade: _avatarFade,
+                    textFade: _textFade,
+                    buttonFade: _buttonFade,
+                    flipController: _flipController,
+                    onFlip: _flipCard,
+                    isPressed: _isPressed,
+                    onPressChange: (v) => setState(() => _isPressed = v),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildAvatar(String imagePath) {
-    return Container(
-      width: 220,
-      height: 220,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.white, width: 4),
-      ),
-      child: ClipOval(child: Image.asset(imagePath, fit: BoxFit.cover)),
     );
   }
 }
