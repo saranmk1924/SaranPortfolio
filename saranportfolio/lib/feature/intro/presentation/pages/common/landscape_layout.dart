@@ -48,108 +48,122 @@ class LandscapeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SlideTransition(
-                    position: avatarSlide,
-                    child: FadeTransition(
-                      opacity: avatarFade,
-                      child: GestureDetector(
-                        onTap: onFlip,
-                        child: AnimatedBuilder(
-                          animation: flipController,
-                          builder: (context, child) {
-                            final angle = flipController.value * 3.1416;
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SlideTransition(
+                              position: avatarSlide,
+                              child: FadeTransition(
+                                opacity: avatarFade,
+                                child: GestureDetector(
+                                  onTap: onFlip,
+                                  child: AnimatedBuilder(
+                                    animation: flipController,
+                                    builder: (context, child) {
+                                      final angle =
+                                          flipController.value * 3.1416;
 
-                            return Transform(
-                              alignment: Alignment.center,
-                              transform: Matrix4.identity()
-                                ..setEntry(3, 2, 0.001)
-                                ..rotateY(angle),
-                              child: angle <= 1.5708
-                                  ? _buildAvatar(
-                                      "assets/images/saran_profile.jpeg",
-                                      screenWidth,
-                                    )
-                                  : Transform(
-                                      alignment: Alignment.center,
-                                      transform: Matrix4.rotationY(3.1416),
-                                      child: _buildAvatar(
-                                        "assets/images/saran_animated.jpeg",
-                                        screenWidth,
-                                      ),
-                                    ),
-                            );
-                          },
+                                      return Transform(
+                                        alignment: Alignment.center,
+                                        transform: Matrix4.identity()
+                                          ..setEntry(3, 2, 0.001)
+                                          ..rotateY(angle),
+                                        child: angle <= 1.5708
+                                            ? _buildAvatar(
+                                                "assets/images/saran_profile.jpeg",
+                                                screenWidth,
+                                              )
+                                            : Transform(
+                                                alignment: Alignment.center,
+                                                transform: Matrix4.rotationY(
+                                                  3.1416,
+                                                ),
+                                                child: _buildAvatar(
+                                                  "assets/images/saran_animated.jpeg",
+                                                  screenWidth,
+                                                ),
+                                              ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+
+                      const SizedBox(width: 20),
+                      VerticalDivider(),
+                      const SizedBox(width: 20),
+
+                      Expanded(
+                        child:
+                            /// TEXT
+                            FadeTransition(
+                              opacity: textFade,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: [
+                                  Text(
+                                    "Hi, I'm Saran 👋",
+                                    style: TextStyle(
+                                      fontSize: scaleFont(28, screenWidth),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Flutter Developer",
+                                    style: TextStyle(
+                                      fontSize: scaleFont(20, screenWidth),
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    textAlign: TextAlign.center,
+                                    "I build scalable, high-performance cross-platform flutter applications using clean architecture and robust API integrations.",
+                                    style: TextStyle(
+                                      fontSize: scaleFont(18, screenWidth),
+                                      color: Colors.white60,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+
+                                  /// BUTTON
+                                  ExploreButton(
+                                    fade: buttonFade,
+                                    isPressed: isPressed,
+                                    onPressChange: onPressChange,
+                                    fontSize: scaleFont(14, screenWidth),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-
-            const SizedBox(width: 20),
-            VerticalDivider(),
-            const SizedBox(width: 20),
-
-            Expanded(
-              child:
-                  /// TEXT
-                  FadeTransition(
-                    opacity: textFade,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Hi, I'm Saran 👋",
-                          style: TextStyle(
-                            fontSize: scaleFont(28, screenWidth),
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Flutter Developer",
-                          style: TextStyle(
-                            fontSize: scaleFont(20, screenWidth),
-                            color: Colors.white70,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Flexible(
-                          child: Text(
-                            textAlign: TextAlign.center,
-                            "I build scalable, high-performance cross-platform flutter applications using clean architecture and robust API integrations.",
-                            style: TextStyle(
-                              fontSize: scaleFont(18, screenWidth),
-                              color: Colors.white60,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        /// BUTTON
-                        ExploreButton(
-                          fade: buttonFade,
-                          isPressed: isPressed,
-                          onPressChange: onPressChange,
-                          fontSize: scaleFont(14, screenWidth),
-                        ),
-                      ],
-                    ),
-                  ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
