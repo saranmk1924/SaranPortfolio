@@ -124,31 +124,32 @@ class _IntroViewState extends State<IntroView> with TickerProviderStateMixin {
             children: [
               const IntroBackground(),
 
-              IndexedStack(
-                index: isLandscape ? 1 : 0,
-                children: [
-                  PortraitLayout(
-                    avatarSlide: _avatarSlide,
-                    avatarFade: _avatarFade,
-                    textFade: _textFade,
-                    buttonFade: _buttonFade,
-                    flipController: _flipController,
-                    onFlip: _flipCard,
-                    isPressed: _isPressed,
-                    onPressChange: (v) => setState(() => _isPressed = v),
-                  ),
-                  LandscapeLayout(
-                    screenWidth: MediaQuery.of(context).size.width,
-                    avatarSlide: _avatarSlide,
-                    avatarFade: _avatarFade,
-                    textFade: _textFade,
-                    buttonFade: _buttonFade,
-                    flipController: _flipController,
-                    onFlip: _flipCard,
-                    isPressed: _isPressed,
-                    onPressChange: (v) => setState(() => _isPressed = v),
-                  ),
-                ],
+              OrientationBuilder(
+                builder: (context, orientation) {
+                  final isLandscape = orientation == Orientation.landscape;
+                  return !isLandscape
+                      ? PortraitLayout(
+                          avatarSlide: _avatarSlide,
+                          avatarFade: _avatarFade,
+                          textFade: _textFade,
+                          buttonFade: _buttonFade,
+                          flipController: _flipController,
+                          onFlip: _flipCard,
+                          isPressed: _isPressed,
+                          onPressChange: (v) => setState(() => _isPressed = v),
+                        )
+                      : LandscapeLayout(
+                          screenWidth: MediaQuery.of(context).size.width,
+                          avatarSlide: _avatarSlide,
+                          avatarFade: _avatarFade,
+                          textFade: _textFade,
+                          buttonFade: _buttonFade,
+                          flipController: _flipController,
+                          onFlip: _flipCard,
+                          isPressed: _isPressed,
+                          onPressChange: (v) => setState(() => _isPressed = v),
+                        );
+                },
               ),
             ],
           ),

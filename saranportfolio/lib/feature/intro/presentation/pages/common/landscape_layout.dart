@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saranportfolio/feature/home/presentation/pages/home_page.dart';
 import 'package:saranportfolio/feature/intro/presentation/pages/common/explore_button.dart';
 
 class LandscapeLayout extends StatelessWidget {
@@ -147,11 +148,16 @@ class LandscapeLayout extends StatelessWidget {
                                   const SizedBox(height: 20),
 
                                   /// BUTTON
-                                  ExploreButton(
-                                    fade: buttonFade,
-                                    isPressed: isPressed,
-                                    onPressChange: onPressChange,
-                                    fontSize: scaleFont(14, screenWidth),
+                                  FadeTransition(
+                                    opacity: buttonFade,
+                                    child: ExploreButton(
+                                      onPressed: () {
+                                        Navigator.of(
+                                          context,
+                                        ).push(_createRoute());
+                                      },
+                                      fontSize: scaleFont(14, screenWidth),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -165,6 +171,26 @@ class LandscapeLayout extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 700),
+      reverseTransitionDuration: const Duration(milliseconds: 700),
+      pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOutCubic;
+
+        var tween = Tween(
+          begin: begin,
+          end: end,
+        ).chain(CurveTween(curve: curve));
+
+        return SlideTransition(position: animation.drive(tween), child: child);
+      },
     );
   }
 }
