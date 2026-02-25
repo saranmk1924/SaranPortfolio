@@ -7,4 +7,5 @@ class ColorConstant {
   static const Color yellow = Colors.yellow;
   static const Color darkYellow = Colors.amber;
   static const Color black = Colors.black;
+  static const Color red = Colors.red;
 }

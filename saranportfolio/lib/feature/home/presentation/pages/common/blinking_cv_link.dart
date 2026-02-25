@@ -86,7 +86,7 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
   Future<bool> _savePDFToDownloads(Uint8List bytes) async {
     try {
       if (kIsWeb) {
-      // Web: download using browser
+        // Web: download using browser
         final blob = html.Blob([bytes]);
         final url = html.Url.createObjectUrlFromBlob(blob);
         final anchor = html.AnchorElement(href: url)
@@ -138,8 +138,35 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
   void _downloadPDF(BuildContext context) async {
     const pdfAssetPath = 'assets/SaranMK_Resume_2.pdf';
 
-    // Pre-download snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
+    final messenger = ScaffoldMessenger.of(context);
+
+    // 🔹 WEB FLOW
+    if (kIsWeb) {
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            "Downloading resume...",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: ColorConstant.darkYellow,
+              fontSize: PageLabel.small,
+            ),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.black87,
+        ),
+      );
+
+      try {
+        final bytes = await rootBundle.load(pdfAssetPath);
+        await _savePDFToDownloads(bytes.buffer.asUint8List());
+      } catch (_) {}
+
+      return; // 🚀 IMPORTANT: stop here for web
+    }
+
+    // 🔹 OTHER PLATFORMS (Android / Windows / Mac / Linux)
+    messenger.showSnackBar(
       SnackBar(
         content: Text(
           "Downloading resume...",
@@ -149,16 +176,19 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
             fontSize: PageLabel.small,
           ),
         ),
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 1),
         backgroundColor: Colors.black87,
       ),
     );
 
+    await Future.delayed(const Duration(milliseconds: 2000));
     try {
       final bytes = await rootBundle.load(pdfAssetPath);
       final success = await _savePDFToDownloads(bytes.buffer.asUint8List());
 
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.hideCurrentSnackBar();
+
+      messenger.showSnackBar(
         SnackBar(
           content: Text(
             success
@@ -166,7 +196,7 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
                 : "Download Failed - Permission Denied",
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: success ? ColorConstant.darkYellow : Colors.red,
+              color: success ? ColorConstant.darkYellow : ColorConstant.red,
               fontSize: PageLabel.small,
             ),
           ),
@@ -175,12 +205,17 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
         ),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      messenger.hideCurrentSnackBar();
+
+      messenger.showSnackBar(
         SnackBar(
           content: Text(
             "Something went wrong!",
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.red, fontSize: PageLabel.small),
+            style: TextStyle(
+              color: ColorConstant.red,
+              fontSize: PageLabel.small,
+            ),
           ),
           duration: const Duration(seconds: 2),
           backgroundColor: Colors.black87,
