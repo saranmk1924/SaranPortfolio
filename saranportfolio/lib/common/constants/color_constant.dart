@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ColorConstant {
-  static const Color primary = Color.fromARGB(255, 65, 5, 80);
-  static const Color background = Colors.black;
+  static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;
-  static const Color roseRed = Color(0xFFB22222);
-  static const Color grey = Colors.grey;
-  static const Color secondary = Color.fromARGB(255, 6, 222, 238);
+  static const Color halfWhite = Color.fromARGB(204, 255, 255, 255);
+  static const Color yellow = Colors.yellow;
+  static const Color darkYellow = Colors.amber;
+  static const Color black = Colors.black;
 }

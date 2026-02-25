@@ -3,7 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:saranportfolio/common/constants/color_constant.dart';
+import 'package:saranportfolio/common/constants/fontsize_constant.dart';
+import 'package:saranportfolio/feature/home/presentation/pages/common/blinking_cv_link.dart';
+import 'package:saranportfolio/feature/home/presentation/pages/common/contact_icon.dart';
 import 'package:saranportfolio/feature/home/presentation/pages/common/glow_card.dart';
+import 'package:saranportfolio/feature/home/presentation/pages/common/skill_card.dart';
 
 class TabletHomeView extends StatefulWidget {
   const TabletHomeView({super.key});
@@ -34,6 +39,7 @@ class TabletHomeViewState extends State<TabletHomeView>
   final GlobalKey _homeKey = GlobalKey();
   final GlobalKey _projectsTitleKey = GlobalKey();
   final GlobalKey _skillsKey = GlobalKey();
+  final GlobalKey _contactKey = GlobalKey();
 
   @override
   void initState() {
@@ -72,7 +78,7 @@ class TabletHomeViewState extends State<TabletHomeView>
       },
       {
         "title": "AppStudio",
-        "subtitle": "Flutter | BLoC | Drift DB",
+        "subtitle": "Flutter | BLoC",
         "description":
             "Project creation tool with Express Builder workflow & offline database persistence.",
       },
@@ -244,20 +250,57 @@ class TabletHomeViewState extends State<TabletHomeView>
           children: const [
             Text(
               "Domain: Flutter | BLoC",
-              style: TextStyle(color: Colors.amber),
+              style: TextStyle(
+                color: ColorConstant.darkYellow,
+                fontWeight: FontWeight.w700,
+                fontSize: PageSubHeading.medium,
+              ),
             ),
             SizedBox(height: 12),
 
             Text(
               "Key Features:",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.white,
+              ),
             ),
             SizedBox(height: 6),
-            Text("• Dynamic document & template creation"),
-            Text("• Text, image, link & table mapping system"),
-            Text("• Real-time arithmetic table calculations"),
-            Text("• Word/Excel-like structured editor"),
-            Text("• Scalable BLoC-based architecture"),
+            Text(
+              "• Dynamic document & template creation",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Text, image, link & table mapping system",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Real-time arithmetic table calculations",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Word/Excel-like structured editor",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Scalable BLoC-based architecture",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
           ],
         ),
       ),
@@ -279,20 +322,57 @@ class TabletHomeViewState extends State<TabletHomeView>
           children: const [
             Text(
               "Domain: Flutter | setState",
-              style: TextStyle(color: Colors.amber),
+              style: TextStyle(
+                color: ColorConstant.darkYellow,
+                fontWeight: FontWeight.w700,
+                fontSize: PageSubHeading.medium,
+              ),
             ),
             SizedBox(height: 12),
 
             Text(
               "Key Features:",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.white,
+              ),
             ),
             SizedBox(height: 6),
-            Text("• Employee leave & permission management"),
-            Text("• Task management (Add/Edit/Delete/View)"),
-            Text("• Admin approval & rejection workflows"),
-            Text("• Clean validation & user feedback system"),
-            Text("• REST API integration for data handling"),
+            Text(
+              "• Employee leave & permission management",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Task management (Add/Edit/Delete/View)",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Admin approval & rejection workflows",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Clean validation & user feedback system",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• REST API integration for data handling",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
           ],
         ),
       ),
@@ -312,19 +392,59 @@ class TabletHomeViewState extends State<TabletHomeView>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            Text("Domain: Flutter", style: TextStyle(color: Colors.amber)),
+            Text(
+              "Domain: Flutter",
+              style: TextStyle(
+                color: ColorConstant.darkYellow,
+                fontWeight: FontWeight.w700,
+                fontSize: PageSubHeading.medium,
+              ),
+            ),
             SizedBox(height: 12),
 
             Text(
               "Key Features:",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.white,
+              ),
             ),
             SizedBox(height: 6),
-            Text("• Canva-inspired digital design platform"),
-            Text("• Authentication (Login / Signup / Forgot)"),
-            Text("• Admin template & category management"),
-            Text("• Add / Edit / Delete / Fetch operations"),
-            Text("• Consistent multi-screen UI architecture"),
+            Text(
+              "• Canva-inspired digital design platform",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Authentication (Login / Signup / Forgot)",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Admin template & category management",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Add / Edit / Delete / Fetch operations",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Consistent multi-screen UI architecture",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
           ],
         ),
       ),
@@ -346,20 +466,57 @@ class TabletHomeViewState extends State<TabletHomeView>
           children: const [
             Text(
               "Domain: Flutter | BLoC",
-              style: TextStyle(color: Colors.amber),
+              style: TextStyle(
+                color: ColorConstant.darkYellow,
+                fontWeight: FontWeight.w700,
+                fontSize: PageSubHeading.medium,
+              ),
             ),
             SizedBox(height: 12),
 
             Text(
               "Key Features:",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.white,
+              ),
             ),
             SizedBox(height: 6),
-            Text("• Project & template creation tool"),
-            Text("• Express Builder guided workflow"),
-            Text("• My Projects CRUD module"),
-            Text("• Drift DB offline data persistence"),
-            Text("• Complex UI state management using BLoC"),
+            Text(
+              "• Project & template creation tool",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Express Builder guided workflow",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• My Projects CRUD module",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Drift DB offline data persistence",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Complex UI state management using BLoC",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
           ],
         ),
       ),
@@ -381,31 +538,95 @@ class TabletHomeViewState extends State<TabletHomeView>
           children: const [
             Text(
               "Domain: Flutter | BLoC",
-              style: TextStyle(color: Colors.amber),
+              style: TextStyle(
+                color: ColorConstant.darkYellow,
+                fontWeight: FontWeight.w700,
+                fontSize: PageSubHeading.medium,
+              ),
             ),
-            SizedBox(height: 12),
+            SizedBox(height: 8),
 
             Text(
               "Organizer App (Admin Panel):",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.white,
+              ),
             ),
             SizedBox(height: 6),
-            Text("• Tournament creation & management"),
-            Text("• Fixture generation & scheduling"),
-            Text("• Registration dashboard approval system"),
-            Text("• Structured admin workflows"),
+            Text(
+              "• Tournament creation & management",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Fixture generation & scheduling",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Registration dashboard approval system",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Structured admin workflows",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
             SizedBox(height: 12),
 
             Text(
               "Player App (Public App):",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.white,
+              ),
             ),
             SizedBox(height: 6),
-            Text("• Team management system"),
-            Text("• Multi-language localization"),
-            Text("• Leaderboard & statistics"),
-            Text("• Team messaging (Gmail-style UI)"),
-            Text("• Unity engine integration"),
+            Text(
+              "• Team management system",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Multi-language localization",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Leaderboard & statistics",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Team messaging (Gmail-style UI)",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
+            Text(
+              "• Unity engine integration",
+              style: TextStyle(
+                fontSize: PageSubHeading.medium,
+                color: ColorConstant.halfWhite,
+              ),
+            ),
           ],
         ),
       ),
@@ -442,13 +663,24 @@ class TabletHomeViewState extends State<TabletHomeView>
                         child: GlowCard(
                           isBlinking: false,
                           title: "Professional Summary",
-                          child: const Text(
-                            "Highly motivated and detail-oriented Flutter Developer with 1.5 years of experience building scalable, high-performance cross-platform applications. Strongly focused on crafting intuitive, responsive UI designs and integrating RESTful APIs to deliver seamless user experiences.",
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 16,
-                              height: 1.6,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Highly motivated and detail-oriented Flutter Developer with 1.5 years of experience building scalable, high-performance cross-platform applications. Strongly focused on crafting intuitive, responsive UI designs and integrating RESTful APIs to deliver seamless user experiences.",
+                                style: TextStyle(
+                                  color: ColorConstant.halfWhite,
+                                  fontSize: PageSubHeading.medium,
+                                  height: 1.6,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+
+                              Align(
+                                alignment: Alignment.center,
+                                child: const BlinkingCvLink(),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -468,9 +700,9 @@ class TabletHomeViewState extends State<TabletHomeView>
                             key: _projectsTitleKey,
                             "Projects",
                             style: TextStyle(
-                              fontSize: 26,
+                              fontSize: PageHeading.medium,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: ColorConstant.white,
                             ),
                           ),
 
@@ -478,7 +710,7 @@ class TabletHomeViewState extends State<TabletHomeView>
 
                           /// Auto Sliding PageView
                           SizedBox(
-                            height: 190,
+                            height: 210,
                             child: NotificationListener<UserScrollNotification>(
                               onNotification: (notification) {
                                 if (notification.direction ==
@@ -601,16 +833,18 @@ class TabletHomeViewState extends State<TabletHomeView>
                                             Text(
                                               project["subtitle"]!,
                                               style: const TextStyle(
-                                                color: Colors.amber,
-                                                fontWeight: FontWeight.w500,
+                                                color: ColorConstant.darkYellow,
+                                                fontSize: PageSubHeading.medium,
+                                                fontWeight: FontWeight.w700,
                                               ),
                                             ),
                                             const SizedBox(height: 5),
                                             Text(
                                               project["description"]!,
                                               style: const TextStyle(
-                                                color: Colors.white70,
+                                                color: ColorConstant.halfWhite,
                                                 height: 1.5,
+                                                fontSize: PageSubHeading.medium,
                                               ),
                                             ),
                                             const SizedBox(height: 13),
@@ -618,20 +852,28 @@ class TabletHomeViewState extends State<TabletHomeView>
                                               alignment: Alignment.centerRight,
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
-                                                children: const [
+                                                children: [
                                                   Text(
                                                     "View More",
                                                     style: TextStyle(
-                                                      color: Colors.amber,
+                                                      color: ColorConstant
+                                                          .darkYellow,
                                                       fontWeight:
                                                           FontWeight.w600,
+                                                      fontSize:
+                                                          PageLabel.medium,
                                                     ),
                                                   ),
                                                   SizedBox(width: 6),
-                                                  Icon(
-                                                    Icons.arrow_forward_rounded,
-                                                    color: Colors.amber,
-                                                    size: 18,
+                                                  Transform.translate(
+                                                    offset: Offset(0, 2),
+                                                    child: Icon(
+                                                      Icons
+                                                          .arrow_forward_rounded,
+                                                      color: ColorConstant
+                                                          .darkYellow,
+                                                      size: 18,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -667,8 +909,8 @@ class TabletHomeViewState extends State<TabletHomeView>
                                 height: 8,
                                 decoration: BoxDecoration(
                                   color: selectedIndex == index
-                                      ? Colors.amber
-                                      : Colors.grey.shade600,
+                                      ? ColorConstant.darkYellow
+                                      : ColorConstant.halfWhite,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                               );
@@ -682,7 +924,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
+                              horizontal: 34,
                               vertical: 20,
                             ),
                             gridDelegate:
@@ -690,14 +932,14 @@ class TabletHomeViewState extends State<TabletHomeView>
                                   crossAxisCount:
                                       2, // change to 1 for mobile, 2+ for tablet
                                 ),
-                            mainAxisSpacing: 20,
+                            mainAxisSpacing: 35,
                             crossAxisSpacing: 30,
                             itemCount: _projects.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 key: _projectKeys[index],
                                 padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
+                                  vertical: 0,
                                 ),
                                 child: _buildDetailedProject(index),
                               );
@@ -708,7 +950,141 @@ class TabletHomeViewState extends State<TabletHomeView>
                     ),
                   ),
 
-                  SizedBox(key: _skillsKey),
+                  /// Replace your SizedBox(key: _skillsKey) with this:
+                  Padding(
+                    key: _skillsKey,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 35,
+                      vertical: 5,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Skills",
+                          style: TextStyle(
+                            color: ColorConstant.white,
+                            fontSize: PageHeading.medium,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+
+                        LayoutBuilder(
+                          builder: (context, constraints) {
+                            // Minimum width for a single card
+                            const minCardWidth = 140.0;
+                            // Horizontal spacing between cards
+                            const spacing = 16.0;
+
+                            // Calculate how many cards can fit per row
+                            int cardsPerRow =
+                                (constraints.maxWidth /
+                                        (minCardWidth + spacing))
+                                    .floor();
+                            cardsPerRow = cardsPerRow.clamp(
+                              1,
+                              6,
+                            ); // ensure at least 1, at most 6
+
+                            // Calculate exact width per card
+                            final double cardWidth =
+                                (constraints.maxWidth -
+                                    (spacing * (cardsPerRow - 1))) /
+                                cardsPerRow;
+
+                            final skills = [
+                              {"icon": Icons.flutter_dash, "label": "Flutter"},
+                              {"icon": Icons.code, "label": "Dart"},
+                              {"icon": Icons.merge_type, "label": "Git"},
+                              {"icon": Icons.cloud, "label": "AWS"},
+                              {"icon": Icons.coffee, "label": "Java"},
+                              {"icon": Icons.web, "label": "HTML & CSS"},
+                            ];
+
+                            return Wrap(
+                              spacing: spacing,
+                              runSpacing: spacing,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              runAlignment: WrapAlignment.center,
+                              alignment: WrapAlignment.center,
+                              children: skills
+                                  .map(
+                                    (skill) => SizedBox(
+                                      width: cardWidth,
+                                      child: SkillCard(
+                                        icon: skill["icon"] as IconData,
+                                        label: skill["label"] as String,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// Contact Me Section
+                  Padding(
+                    key: _contactKey,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 35,
+                      vertical: 20,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Contact Me",
+                          style: TextStyle(
+                            color: ColorConstant.white,
+                            fontSize: PageHeading.small,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+
+                        /// Icons Row
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 30,
+                          children: [
+                            /// Gmail
+                            ContactIcon(
+                              icon: Icons.email,
+                              label: "Gmail",
+                              url: "mksaran0@gmail.com",
+                            ),
+
+                            /// Phone
+                            ContactIcon(
+                              icon: Icons.phone,
+                              label: "Phone",
+                              url: "9840795810",
+                            ),
+
+                            /// GitHub
+                            ContactIcon(
+                              icon: Icons.code,
+                              label: "GitHub",
+                              url: "https://github.com/saranmk1924",
+                            ),
+
+                            /// LinkedIn
+                            ContactIcon(
+                              icon: Icons.work,
+                              label: "LinkedIn",
+                              url:
+                                  "https://www.linkedin.com/in/saran-m-k-163069228/",
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 35),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -724,7 +1100,7 @@ class TabletHomeViewState extends State<TabletHomeView>
               opacity: _showFullHeader ? 1 : 0,
               child: Container(
                 height: 80,
-                color: Colors.amber,
+                color: ColorConstant.darkYellow,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 10,
@@ -734,7 +1110,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                     Hero(
                       tag: "avatarHero",
                       child: Material(
-                        color: Colors.transparent,
+                        color: ColorConstant.transparent,
                         child: MouseRegion(
                           cursor: SystemMouseCursors.click,
                           child: GestureDetector(
@@ -745,7 +1121,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Colors.black,
+                                  color: ColorConstant.black,
                                   width: 4,
                                 ),
                               ),
@@ -776,7 +1152,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                             },
                             child: const Icon(
                               Icons.home,
-                              color: Colors.black,
+                              color: ColorConstant.black,
                               size: 35,
                             ),
                           ),
@@ -785,7 +1161,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                             onTap: () => _scrollToKey(_projectsTitleKey),
                             child: const Icon(
                               Icons.work,
-                              color: Colors.black,
+                              color: ColorConstant.black,
                               size: 35,
                             ),
                           ),
@@ -793,15 +1169,15 @@ class TabletHomeViewState extends State<TabletHomeView>
                             onTap: () => _scrollToKey(_skillsKey),
                             child: Icon(
                               Icons.psychology,
-                              color: Colors.black,
+                              color: ColorConstant.black,
                               size: 35,
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => _scrollToKey(_skillsKey),
+                            onTap: () => _scrollToKey(_contactKey),
                             child: Icon(
                               Icons.contact_phone_rounded,
-                              color: Colors.black,
+                              color: ColorConstant.black,
                               size: 35,
                             ),
                           ),
@@ -822,7 +1198,7 @@ class TabletHomeViewState extends State<TabletHomeView>
               child: Hero(
                 tag: "avatarHero",
                 child: Material(
-                  color: Colors.transparent,
+                  color: ColorConstant.transparent,
                   elevation: 20, // floating elevation
                   shape: const CircleBorder(),
                   child: MouseRegion(
@@ -835,7 +1211,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                         ), // space for outer border
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.yellow, // outer border color
+                          color: ColorConstant.yellow, // outer border color
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.4),
@@ -851,7 +1227,7 @@ class TabletHomeViewState extends State<TabletHomeView>
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: Colors.black,
+                              color: ColorConstant.black,
                               width: 4,
                             ), // inner border
                           ),
@@ -875,7 +1251,7 @@ class TabletHomeViewState extends State<TabletHomeView>
               child: Material(
                 elevation: 20,
                 borderRadius: BorderRadius.circular(30),
-                color: Colors.amber,
+                color: ColorConstant.darkYellow,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -902,19 +1278,18 @@ class TabletHomeViewState extends State<TabletHomeView>
                             curve: Curves.easeInOut,
                           );
                         },
-                        child: Icon(Icons.home, color: Colors.black, size: 30),
+                        child: Icon(
+                          Icons.home,
+                          color: ColorConstant.black,
+                          size: 30,
+                        ),
                       ),
                       SizedBox(width: 25),
                       GestureDetector(
                         onTap: () => _scrollToKey(_projectsTitleKey),
-                        child: Icon(Icons.work, color: Colors.black, size: 30),
-                      ),
-                      SizedBox(width: 25),
-                      GestureDetector(
-                        onTap: () => _scrollToKey(_skillsKey),
                         child: Icon(
-                          Icons.psychology,
-                          color: Colors.black,
+                          Icons.work,
+                          color: ColorConstant.black,
                           size: 30,
                         ),
                       ),
@@ -922,8 +1297,17 @@ class TabletHomeViewState extends State<TabletHomeView>
                       GestureDetector(
                         onTap: () => _scrollToKey(_skillsKey),
                         child: Icon(
+                          Icons.psychology,
+                          color: ColorConstant.black,
+                          size: 30,
+                        ),
+                      ),
+                      SizedBox(width: 25),
+                      GestureDetector(
+                        onTap: () => _scrollToKey(_contactKey),
+                        child: Icon(
                           Icons.contact_phone_rounded,
-                          color: Colors.black,
+                          color: ColorConstant.black,
                           size: 30,
                         ),
                       ),

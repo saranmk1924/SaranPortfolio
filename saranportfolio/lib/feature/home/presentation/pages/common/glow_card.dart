@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saranportfolio/common/constants/fontsize_constant.dart';
 
 class GlowCard extends StatefulWidget {
   final String title;
@@ -13,6 +14,7 @@ class GlowCard extends StatefulWidget {
   final double? blurRadius2;
   final double? blurRadius3;
   final double? blurRadius4;
+  final double? titleFontSize;
 
   const GlowCard({
     super.key,
@@ -28,6 +30,7 @@ class GlowCard extends StatefulWidget {
     this.blurRadius2,
     this.blurRadius3,
     this.blurRadius4,
+    this.titleFontSize,
   });
 
   @override
@@ -128,9 +131,9 @@ class _GlowCardState extends State<GlowCard>
                 children: [
                   Text(
                     widget.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.yellow,
-                      fontSize: 18,
+                      fontSize: widget.titleFontSize?? PageHeading2.small,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

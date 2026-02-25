@@ -10,6 +10,7 @@ class LandscapeLayout extends StatelessWidget {
   final AnimationController flipController;
   final VoidCallback onFlip;
   final double screenWidth;
+  final double screenHeight;
 
   final bool isPressed;
   final ValueChanged<bool> onPressChange;
@@ -25,6 +26,7 @@ class LandscapeLayout extends StatelessWidget {
     required this.isPressed,
     required this.onPressChange,
     required this.screenWidth,
+    required this.screenHeight,
   });
 
   Widget _buildAvatar(String imagePath, double screenWidth) {
@@ -52,7 +54,7 @@ class LandscapeLayout extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Padding(
@@ -145,7 +147,7 @@ class LandscapeLayout extends StatelessWidget {
                                       color: Colors.white60,
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: screenHeight * 0.05),
 
                                   /// BUTTON
                                   FadeTransition(

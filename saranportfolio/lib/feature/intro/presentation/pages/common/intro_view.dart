@@ -140,6 +140,7 @@ class _IntroViewState extends State<IntroView> with TickerProviderStateMixin {
                         )
                       : LandscapeLayout(
                           screenWidth: MediaQuery.of(context).size.width,
+                          screenHeight: MediaQuery.of(context).size.height,
                           avatarSlide: _avatarSlide,
                           avatarFade: _avatarFade,
                           textFade: _textFade,
