@@ -83,49 +83,55 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
     return true;
   }
 
-  Future<void> _savePDFToDownloads(Uint8List bytes) async {
-    if (kIsWeb) {
+  Future<bool> _savePDFToDownloads(Uint8List bytes) async {
+    try {
+      if (kIsWeb) {
       // Web: download using browser
-      final blob = html.Blob([bytes]);
-      final url = html.Url.createObjectUrlFromBlob(blob);
-      final anchor = html.AnchorElement(href: url)
-        ..setAttribute("download", "Saran_Resume.pdf")
-        ..click();
-      html.Url.revokeObjectUrl(url);
-    } else if (Platform.isAndroid) {
-      final granted = await _requestStoragePermission();
-      if (!granted) {
-        print("Storage permission denied");
-        return;
+        final blob = html.Blob([bytes]);
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        final anchor = html.AnchorElement(href: url)
+          ..setAttribute("download", "Saran_Resume.pdf")
+          ..click();
+        html.Url.revokeObjectUrl(url);
+        return true;
+      } else if (Platform.isAndroid) {
+        final granted = await _requestStoragePermission();
+        if (!granted) {
+          return false; // ❌ Permission denied
+        }
+
+        final downloadsDir = Directory('/storage/emulated/0/Download');
+
+        if (!await downloadsDir.exists()) {
+          await downloadsDir.create(recursive: true);
+        }
+
+        final file = File('${downloadsDir.path}/Saran_Resume.pdf');
+        await file.writeAsBytes(bytes, flush: true);
+        return true;
+      } else if (Platform.isWindows) {
+        final user = Platform.environment['USERPROFILE'] ?? '';
+        final dir = Directory(path.join(user, 'Downloads'));
+        if (!await dir.exists()) await dir.create(recursive: true);
+        final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
+        await file.writeAsBytes(bytes);
+        return true;
+      } else if (Platform.isLinux || Platform.isMacOS) {
+        final home = Platform.environment['HOME'] ?? '';
+        final dir = Directory(path.join(home, 'Downloads'));
+        if (!await dir.exists()) await dir.create(recursive: true);
+        final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
+        await file.writeAsBytes(bytes);
+        return true;
+      } else {
+        final dir = await getApplicationDocumentsDirectory();
+        final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
+        await file.writeAsBytes(bytes);
+        return true;
       }
-
-      final downloadsDir = Directory('/storage/emulated/0/Download');
-
-      if (!await downloadsDir.exists()) {
-        await downloadsDir.create(recursive: true);
-      }
-
-      final file = File('${downloadsDir.path}/Saran_Resume.pdf');
-      await file.writeAsBytes(bytes, flush: true);
-
-      print("Saved to: ${file.path}");
-    } else if (Platform.isWindows) {
-      final user = Platform.environment['USERPROFILE'] ?? '';
-      final dir = Directory(path.join(user, 'Downloads'));
-      if (!await dir.exists()) await dir.create(recursive: true);
-      final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
-      await file.writeAsBytes(bytes);
-    } else if (Platform.isLinux || Platform.isMacOS) {
-      final home = Platform.environment['HOME'] ?? '';
-      final dir = Directory(path.join(home, 'Downloads'));
-      if (!await dir.exists()) await dir.create(recursive: true);
-      final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
-      await file.writeAsBytes(bytes);
-    } else {
-      // fallback: app documents directory
-      final dir = await getApplicationDocumentsDirectory();
-      final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
-      await file.writeAsBytes(bytes);
+    } catch (e) {
+      print("Download error: $e");
+      return false; // ❌ Any error
     }
   }
 
@@ -148,129 +154,40 @@ class _BlinkingCvLinkState extends State<BlinkingCvLink>
       ),
     );
 
-    // if (kIsWeb) {
-    // 🌐 Web download
-    // final bytes = await rootBundle.load(pdfAssetPath);
-    // final blob = html.Blob([bytes.buffer.asUint8List()]);
-    // final url = html.Url.createObjectUrlFromBlob(blob);
-    // // final anchor = html.AnchorElement(href: url)
-    // //   ..setAttribute("download", "Saran_Resume.pdf")
-    // //   ..click();
-    // html.Url.revokeObjectUrl(url);
-    final bytes = await rootBundle.load(pdfAssetPath);
-    await _savePDFToDownloads(bytes.buffer.asUint8List());
-    // } else {
-    // 💻 Mobile/Desktop
-    // final bytes = await rootBundle.load(pdfAssetPath);
-    // final list = bytes.buffer.asUint8List();
+    try {
+      final bytes = await rootBundle.load(pdfAssetPath);
+      final success = await _savePDFToDownloads(bytes.buffer.asUint8List());
 
-    // Directory dir;
-
-    // if (Platform.isWindows) {
-    //   // Windows Downloads folder
-    //   final user = Platform.environment['USERPROFILE'] ?? '';
-    //   dir = Directory(path.join(user, 'Downloads'));
-    // } else if (Platform.isLinux || Platform.isMacOS) {
-    //   // Linux/macOS Downloads folder
-    //   final home = Platform.environment['HOME'] ?? '';
-    //   dir = Directory(path.join(home, 'Downloads'));
-    // } else {
-    //   // Mobile: app documents directory
-    //   dir = await getApplicationDocumentsDirectory();
-    // }
-
-    // final file = File(path.join(dir.path, 'Saran_Resume.pdf'));
-    // await file.writeAsBytes(list);
-    //   final bytes = await rootBundle.load(pdfAssetPath);
-    //   await _savePDFToDownloads(bytes.buffer.asUint8List());
-    // }
-
-    // Success snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Resume Downloaded!",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: ColorConstant.darkYellow,
-            fontSize: PageLabel.small,
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            success
+                ? "Resume Downloaded Successfully!"
+                : "Download Failed - Permission Denied",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: success ? ColorConstant.darkYellow : Colors.red,
+              fontSize: PageLabel.small,
+            ),
           ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.black87,
         ),
-        duration: const Duration(seconds: 2),
-        backgroundColor: Colors.black87,
-      ),
-    );
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Something went wrong!",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.red, fontSize: PageLabel.small),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.black87,
+        ),
+      );
+    }
   }
-
-  // void _downloadPDF(BuildContext context) async {
-  //   const pdfAssetPath = 'assets/SaranMK_Resume_2.pdf';
-
-  //   // Show pre-download snackbar
-  //   final downloadingSnackBar = SnackBar(
-  //     content: Text(
-  //       "Downloading resume...",
-  //       textAlign: TextAlign.center,
-  //       style: TextStyle(
-  //         color: ColorConstant.darkYellow,
-  //         fontSize: PageLabel.small,
-  //       ),
-  //     ),
-  //     duration: const Duration(seconds: 2),
-  //     backgroundColor: Colors.black87,
-  //   );
-  //   ScaffoldMessenger.of(context).showSnackBar(downloadingSnackBar);
-
-  //   if (kIsWeb) {
-  //     // Web download
-  //     final bytes = await rootBundle.load(pdfAssetPath);
-  //     final blob = html.Blob([bytes.buffer.asUint8List()]);
-  //     final url = html.Url.createObjectUrlFromBlob(blob);
-  //     final anchor = html.AnchorElement(href: url)
-  //       ..setAttribute("download", "Saran_Resume.pdf")
-  //       ..click();
-  //     html.Url.revokeObjectUrl(url);
-
-  //     // Success snackbar
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(
-  //           "Resume Downloaded!",
-  //           textAlign: TextAlign.center,
-  //           style: TextStyle(
-  //             color: ColorConstant.darkYellow,
-  //             fontSize: PageLabel.small,
-  //           ),
-  //         ),
-  //         duration: const Duration(seconds: 2),
-  //         backgroundColor: Colors.black87,
-  //       ),
-  //     );
-  //   } else {
-  //     // Mobile/Desktop
-  //     final bytes = await rootBundle.load(pdfAssetPath);
-  //     final list = bytes.buffer.asUint8List();
-
-  //     final dir = await getApplicationDocumentsDirectory();
-  //     final file = File('${dir.path}/Saran_Resume.pdf');
-  //     await file.writeAsBytes(list);
-
-  //     // Success snackbar
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(
-  //           "Resume Downloaded!",
-  //           textAlign: TextAlign.center,
-  //           style: TextStyle(
-  //             color: ColorConstant.darkYellow,
-  //             fontSize: PageLabel.small,
-  //           ),
-  //         ),
-  //         duration: const Duration(seconds: 2),
-  //         backgroundColor: Colors.black87,
-  //       ),
-  //     );
-  //   }
-  // }
 
   @override
   void dispose() {
