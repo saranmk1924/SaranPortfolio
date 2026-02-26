@@ -110,49 +110,52 @@ class _IntroViewState extends State<IntroView> with TickerProviderStateMixin {
     final isLandscape =
         MediaQuery.of(context).size.width > MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0F0F0F), Color(0xFF1A1A1A)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    return PopScope(
+      canPop: false, // Prevent back navigation  
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0F0F0F), Color(0xFF1A1A1A)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              const IntroBackground(),
-
-              OrientationBuilder(
-                builder: (context, orientation) {
-                  final isLandscape = orientation == Orientation.landscape;
-                  return !isLandscape
-                      ? PortraitLayout(
-                          avatarSlide: _avatarSlide,
-                          avatarFade: _avatarFade,
-                          textFade: _textFade,
-                          buttonFade: _buttonFade,
-                          flipController: _flipController,
-                          onFlip: _flipCard,
-                          isPressed: _isPressed,
-                          onPressChange: (v) => setState(() => _isPressed = v),
-                        )
-                      : LandscapeLayout(
-                          screenWidth: MediaQuery.of(context).size.width,
-                          screenHeight: MediaQuery.of(context).size.height,
-                          avatarSlide: _avatarSlide,
-                          avatarFade: _avatarFade,
-                          textFade: _textFade,
-                          buttonFade: _buttonFade,
-                          flipController: _flipController,
-                          onFlip: _flipCard,
-                          isPressed: _isPressed,
-                          onPressChange: (v) => setState(() => _isPressed = v),
-                        );
-                },
-              ),
-            ],
+          child: SafeArea(
+            child: Stack(
+              children: [
+                const IntroBackground(),
+      
+                OrientationBuilder(
+                  builder: (context, orientation) {
+                    final isLandscape = orientation == Orientation.landscape;
+                    return !isLandscape
+                        ? PortraitLayout(
+                            avatarSlide: _avatarSlide,
+                            avatarFade: _avatarFade,
+                            textFade: _textFade,
+                            buttonFade: _buttonFade,
+                            flipController: _flipController,
+                            onFlip: _flipCard,
+                            isPressed: _isPressed,
+                            onPressChange: (v) => setState(() => _isPressed = v),
+                          )
+                        : LandscapeLayout(
+                            screenWidth: MediaQuery.of(context).size.width,
+                            screenHeight: MediaQuery.of(context).size.height,
+                            avatarSlide: _avatarSlide,
+                            avatarFade: _avatarFade,
+                            textFade: _textFade,
+                            buttonFade: _buttonFade,
+                            flipController: _flipController,
+                            onFlip: _flipCard,
+                            isPressed: _isPressed,
+                            onPressChange: (v) => setState(() => _isPressed = v),
+                          );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
