@@ -10,23 +10,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false, // Prevent back navigation  
-      child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF0F0F0F), Color(0xFF1A1A1A)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF0F0F0F), Color(0xFF1A1A1A)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          child: ResponsiveLayout(
-            mobile: const MobileHomeView(),
-            tablet: const TabletHomeView(),
-            desktop: const DesktopHomeView(),
-            ultraHd: const UltrahdHomeView(),
-          ),
+        ),
+        child: ResponsiveLayout(
+          mobile: const MobileHomeView(),
+          tablet: const TabletHomeView(),
+          desktop: const DesktopHomeView(),
+          ultraHd: const UltrahdHomeView(),
         ),
       ),
     );
